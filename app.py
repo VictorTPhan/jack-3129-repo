@@ -29,6 +29,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for the app
 
 # Function to process video and detect poses
+@app.route('/process/users_side/video_url')
 def video_processer(users_side, video_url):
     LR = 0
     if users_side == "Left":
