@@ -29,7 +29,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for the app
 
 # Function to process video and detect poses
-@app.route('/process/video', methods=['POST'])
+@app.route('/process', methods=['POST'])
 def video_processer():
     # Extract data from the JSON payload
     data = request.get_json()
