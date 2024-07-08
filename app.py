@@ -77,7 +77,6 @@ def video_processer(users_side, video_url):
     frame_width = int(cap.get(3))  # Frame width
     frame_height = int(cap.get(4))  # Frame height
     frame_size = (frame_width, frame_height)
-    output = cv2.VideoWriter('Sam.avi', cv2.VideoWriter_fourcc(*'MP4V'), fps, frame_size)  # Video writer object
     
     while cap.isOpened():
         ret, frame = cap.read()  # Read a frame from the video
@@ -144,17 +143,16 @@ def video_processer(users_side, video_url):
                         feedback.append("Your opponent did a fleche")  # Provide feedback
                     pre_1a = knee_1a
                     pre_2a = knee_2a
-                
-                # Draw landmarks on the frame
-                mpDraw.draw_landmarks(frame, pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS, mp.solutions.drawing_styles.get_default_pose_landmarks_style())
-            
-            output.write(frame)  # Write frame to output video
         else:
             print("Stream disconnected")  # Print message if stream is disconnected
             break
     
     cap.release()  # Release the video capture object
     cv2.destroyAllWindows()  # Destroy all OpenCV windows
+
+    if len(feedback) == 0:
+        feedback = ["Could not detect any moves in this footage."]
+    
     return jsonify(feedback)  # Return feedback list
 
 # Run the Flask app
