@@ -1,5 +1,5 @@
 # Import necessary libraries
-from flask import Flask, jsonify  # Flask is a web framework for Python
+from flask import Flask, request, jsonify  # Flask is a web framework for Python
 from flask_cors import CORS  # CORS is a Flask extension for handling Cross-Origin Resource Sharing
 import cv2  # OpenCV for computer vision tasks
 import numpy as np  # NumPy for numerical operations
@@ -29,8 +29,13 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for the app
 
 # Function to process video and detect poses
-@app.route('/process/users_side/video_url')
-def video_processer(users_side, video_url):
+@app.route('/process/video', methods=['POST'])
+def video_processer():
+    # Extract data from the JSON payload
+    data = request.get_json()
+    users_side = data.get('users_side')
+    video_url = data.get('video_url')
+
     LR = 0
     if users_side == "Left":
         users_side = 0
