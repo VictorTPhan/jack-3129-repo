@@ -13,6 +13,10 @@ from firebase_admin import credentials
 cred = credentials.Certificate("jack-f9b30-firebase-adminsdk-rr8sw-199fc9def6.json")
 firebase_admin.initialize_app(cred)
 
+# Initialize Flask application
+app = Flask(__name__)
+CORS(app)  # Enable CORS for the app
+
 # Function to calculate the angle between three points
 def calculate_angle(a, b, c):
     a = np.array(a)  # First point
@@ -23,10 +27,6 @@ def calculate_angle(a, b, c):
     if angle > 180.0:
         angle = 360 - angle
     return round(angle, 1)
-
-# Initialize Flask application
-app = Flask(__name__)
-CORS(app)  # Enable CORS for the app
 
 # Function to process video and detect poses
 @app.route('/process', methods=['POST'])
@@ -53,7 +53,7 @@ def video_processer():
     
     # Set up MediaPipe drawing utility and model options
     mpDraw = mp.solutions.drawing_utils
-    model_path = "pose_landmark_full.task"
+    model_path = "pose_landmarker_full.task"
     num_poses = 2
     min_pose_detection_confidence = 0.5
     min_pose_presence_confidence = 0.5
