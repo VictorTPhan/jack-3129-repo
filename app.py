@@ -155,7 +155,9 @@ def video_processer():
     
     print(feedback)
 
-    return jsonify(feedback)  # Return feedback list
+    return jsonify({
+        "actions": feedback
+    })
 
 # Run the Flask app
 if __name__ == '__main__':
