@@ -7,11 +7,6 @@ import mediapipe as mp  # MediaPipe for pose detection and other tasks
 from mediapipe.tasks import python  # MediaPipe tasks
 from mediapipe.tasks.python import vision  # MediaPipe vision tasks
 from mediapipe.framework.formats import landmark_pb2  # MediaPipe landmark formats
-import firebase_admin
-from firebase_admin import credentials
-
-cred = credentials.Certificate("jack-f9b30-firebase-adminsdk-rr8sw-199fc9def6.json")
-firebase_admin.initialize_app(cred)
 
 # Initialize Flask application
 app = Flask(__name__)
@@ -158,6 +153,8 @@ def video_processer():
     if len(feedback) == 0:
         feedback = ["Could not detect any moves in this footage."]
     
+    print(feedback)
+
     return jsonify(feedback)  # Return feedback list
 
 # Run the Flask app
